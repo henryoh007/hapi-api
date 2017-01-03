@@ -1,23 +1,14 @@
 {
-  "name": "fitbit-hapi-demo",
+  "name": "fitbit-hapi-lynda",
   "version": "1.0.0",
-  "description": "Super quick and very dirty demo of using OAuth 2 and webhooks with Fitbit Web API",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Jeremiah Lee",
+  "description": "Example code demonstrating basic fitbit-node functionality with hapi",
+  "main": "implement-subscription.js",
+  "author": "Kirsten Hunter",
   "license": "ISC",
   "dependencies": {
-    "bell": "^5.4.0",
     "hapi": "^11.0.0",
-    "jwt-simple": "^0.3.1",
-    "nedb": "^1.2.1",
-    "wreck": "^6.3.0",
-    "moment":"*",
-    "twit":"*",
-    "vision":"*",
-    "twilio":"*"
+    "mongoose":"^4.7",
+    "fitbit-node":"^2.0"
   },
   "engines": {
     "node": "^4.2.1"
@@ -25,5 +16,8 @@
   "repository":{
     "type" : "git",
     "url" : "https://github.com/jeremiahlee/fitbit-hapi-demo.git"
-  }
+  },
+  "scripts": {
+    "start": "node implement-subscription.js"
+  } 
 }

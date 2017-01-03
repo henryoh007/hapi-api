@@ -8,7 +8,7 @@ var client = new Fitbit('2286BS', 'a224d6efc16f81a2e2760bcf9e8ab1b7');
 var redirect_uri = "http://localhost:8080/fitbit_auth_callback";
 var scope = "activity profile";
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://synedra:3urfew@jello.modulusmongo.net:27017/inor8Ivo');
 var db = mongoose.connection;
 
 var userSchema = mongoose.Schema({
@@ -20,7 +20,12 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 var server = new Hapi.Server();
-server.connection({ port: 8080 });
+var port = parseInt(process.env.PORT, 10) || '8080'
+
+server.connection({ 
+    host: '0.0.0.0', 
+    port: port
+});
 
 
 server.route([
@@ -187,6 +192,24 @@ server.route([
             })
         }
     },
+    { 
+        method: 'POST',
+        path:'/webhook-receiver',
+        handler: function (request, reply) {
+            reply().code(204);
+            // Verify request is actually from Fitbit
+            var requestHash = crypto.createHmac('sha1', "a224d6efc16f81a2e2760bcf9e8ab1b7"+'&')
+                .update(request.payload.toString()).digest('base64');
+        
+            if (requestHash !== request.headers['x-fitbit-signature']) {
+                return console.error('Invalid subscription notification received.');
+            };
+        
+        // Process this request after the response is sent
+        setImmediate(processWebhookNotification, JSON.parse(request.payload.toString()));
+    }
+},
+
     {
         method: 'GET',
         path: '/',
@@ -248,5 +271,5 @@ function subscribeToActivities(user) {
 
 
 server.start(function (err) {
-    console.log('Hapi is listening to http://localhost:8080');
+    console.log('Hapi is listening to port ' + port);
 });
