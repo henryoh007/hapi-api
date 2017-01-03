@@ -197,8 +197,8 @@ server.route([
         method: 'GET',
         path:'/webhook-receiver',
         handler: function(request, reply) {
-            console.log("VERIFY:" + request.params);
-            if (request.params.verify && request.params.verify != fitbit_verification) {
+            console.log("VERIFY:" + request.query);
+            if (request.query.verify && request.query.verify != fitbit_verification) {
                     reply().code(404);
             } else {
                     reply().code(204);
