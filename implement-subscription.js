@@ -1,6 +1,7 @@
 var Hapi = require('hapi');
 var mongoose = require('mongoose');
 var config = require('./app.json');
+var crypto = require('crypto');
 var Fitbit = require('fitbit-node');
 var Q = require('q');
 
@@ -197,7 +198,6 @@ server.route([
         method: 'GET',
         path:'/webhook-receiver',
         handler: function(request, reply) {
-            console.log("VERIFY:" + request.query);
             if (request.query.verify && request.query.verify != fitbit_verification) {
                     reply().code(404);
             } else {
