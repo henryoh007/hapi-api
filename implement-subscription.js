@@ -5,7 +5,7 @@ var Fitbit = require('fitbit-node');
 var Q = require('q');
 
 var client = new Fitbit('2286BS', 'a224d6efc16f81a2e2760bcf9e8ab1b7');
-var redirect_uri = "http://calm-refuge-24086.herokuapp.com:8080/fitbit_auth_callback";
+var redirect_uri = "http://calm-refuge-24086.herokuapp.com/fitbit_auth_callback";
 var scope = "activity profile";
 
 mongoose.connect('mongodb://synedra:3urfew@jello.modulusmongo.net:27017/inor8Ivo');
