@@ -269,6 +269,9 @@ function subscribeToActivities(user) {
     })
 }    
 
+function processWebhookNotification(payload) {
+    console.log(payload);
+}
 
 server.start(function (err) {
     console.log('Hapi is listening to port ' + port);
