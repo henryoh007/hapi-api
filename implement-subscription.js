@@ -6,6 +6,7 @@ var Q = require('q');
 
 var client = new Fitbit('2286BS', 'a224d6efc16f81a2e2760bcf9e8ab1b7');
 var redirect_uri = "http://calm-refuge-24086.herokuapp.com/fitbit_auth_callback";
+var fitbit_verification = "e824d027252c391143f2ad89c246ccb25e947acb412084764aa561f8b9ddbe06";
 var scope = "activity profile";
 
 mongoose.connect('mongodb://synedra:3urfew@jello.modulusmongo.net:27017/inor8Ivo');
@@ -197,6 +198,13 @@ server.route([
         path:'/webhook-receiver',
         handler: function (request, reply) {
             reply().code(204);
+            if (request.params.verify) {
+                if (request.params.verify != fitbit_verification) {
+                    reply().code(404);
+                } else {
+                    reply().code(204);
+                }
+            }
             // Verify request is actually from Fitbit
             var requestHash = crypto.createHmac('sha1', "a224d6efc16f81a2e2760bcf9e8ab1b7"+'&')
                 .update(request.payload.toString()).digest('base64');
@@ -264,6 +272,7 @@ function subscribeToActivities(user) {
     console.log(requestUrl);
     client.post(requestUrl, user.accessToken).then(function(results) {
         console.log(results);
+        console.log(results[0].errors);
     }).catch(function(results) {
         console.log(results[0].errors);
     })
