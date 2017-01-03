@@ -209,17 +209,8 @@ server.route([
         method: 'POST',
         path:'/webhook-receiver',
         handler: function (request, reply) {
+            console.log(request.payload);
             reply().code(204);
-            // Verify request is actually from Fitbit
-            var requestHash = crypto.createHmac('sha1', "a224d6efc16f81a2e2760bcf9e8ab1b7"+'&')
-                .update(request.payload.toString()).digest('base64');
-        
-            if (requestHash !== request.headers['x-fitbit-signature']) {
-                return console.error('Invalid subscription notification received.');
-            };
-        
-        // Process this request after the response is sent
-        setImmediate(processWebhookNotification, JSON.parse(request.payload.toString()));
     }
 },
 
@@ -283,9 +274,6 @@ function subscribeToActivities(user) {
     })
 }    
 
-function processWebhookNotification(payload) {
-    console.log(payload);
-}
 
 server.start(function (err) {
     console.log('Hapi is listening to port ' + port);
