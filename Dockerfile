@@ -11,4 +11,7 @@ WORKDIR /opt
 RUN npm install
 ADD ./MOTD /opt/MOTD
 RUN echo "cat /opt/MOTD" >> /root/.bashrc
+RUN mkdir /root/.httpie
+ADD ./config.json /root/.httpie/config.json
+RUN echo "PS1='Hapi.js API Course >> '" >> /root/.bashrc
 ENTRYPOINT ["/bin/bash"]
