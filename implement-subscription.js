@@ -211,8 +211,8 @@ server.route([
         handler: function (request, reply) {
             console.log(request.payload);
             reply().code(204);
-    }
-},
+        }   
+    },
 
     {
         method: 'GET',
@@ -268,7 +268,6 @@ function subscribeToActivities(user) {
     console.log(requestUrl);
     client.post(requestUrl, user.accessToken).then(function(results) {
         console.log(results);
-        console.log(results[0].errors);
     }).catch(function(results) {
         console.log(results[0].errors);
     })
