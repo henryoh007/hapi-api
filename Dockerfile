@@ -15,4 +15,5 @@ ADD ./MOTD /opt/MOTD
 RUN echo "cat /opt/MOTD" >> /root/.bashrc
 RUN echo "PS1='Hapi.js API Course >> '" >> /root/.bashrc
 RUN echo "export NODE_PATH=/opt/node_modules" >> /root/.bashrc
+RUN cp /opt/init.d /etc
 ENTRYPOINT ["/bin/bash"]
