@@ -10,11 +10,11 @@ RUN apt-get install -y --force-yes nodejs
 RUN mkdir -p /data/db
 ADD . /opt
 WORKDIR /opt
+RUN echo "export NODE_PATH=/opt/node_modules" >> /root/.bashrc
 RUN npm install
 ADD ./MOTD /opt/MOTD
 RUN echo "cat /opt/MOTD" >> /root/.bashrc
 RUN echo "PS1='Hapi.js API Course >> '" >> /root/.bashrc
-RUN echo "export NODE_PATH=/opt/node_modules" >> /root/.bashrc
 RUN echo "defshell -bash" > /root/.screenrc
 RUN cp /opt/init.d /etc
 ENTRYPOINT ["/bin/bash"]
