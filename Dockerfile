@@ -16,5 +16,4 @@ ADD ./MOTD /opt/MOTD
 RUN echo "cat /opt/MOTD" >> /root/.bashrc
 RUN echo "PS1='Hapi.js API Course >> '" >> /root/.bashrc
 RUN echo "defshell -bash" > /root/.screenrc
-RUN cp /opt/init.d /etc
 ENTRYPOINT ["/bin/bash"]
