@@ -16,5 +16,6 @@ ADD ./MOTD /opt/MOTD
 RUN echo "cat /opt/MOTD" >> /root/.bashrc
 RUN echo "PS1='Hapi.js API Course >> '" >> /root/.bashrc
 RUN echo "defshell -bash" > /root/.screenrc
-RUN cp /opt/mongod /etc/init.d/mongod
+RUN cp /opt/mongod /etc/init.d/mongodb
+RUN chmod 777 /etc/init.d/mongodb
 ENTRYPOINT ["/bin/bash"]
